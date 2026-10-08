@@ -12,8 +12,8 @@
 # Ferramentas com nome ou caminho diferente podem ser trocadas na linha de comando:
 #   make JFLEX="java -jar jflex-full-1.9.1.jar" BYACCJ=./yacc.linux
 
-JFLEX   ?= jflex
-BYACCJ  ?= byaccj
+JFLEX   ?= java -jar jflex.jar
+BYACCJ  ?= ./yacc.linux
 JAVAC   ?= javac
 JAVA    ?= java
 JFLAGS  ?= -encoding UTF-8 -nowarn
