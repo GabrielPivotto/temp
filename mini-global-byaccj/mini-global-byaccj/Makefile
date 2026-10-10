@@ -21,7 +21,7 @@ JFLAGS  ?= -encoding UTF-8 -nowarn
 GERADOS = Yylex.java Parser.java ParserVal.java
 FONTES  = Tipo.java Simbolo.java TabSimb.java DeclId.java
 
-.PHONY: all ok erros tabela trace test conflitos clean
+.PHONY: all ok erros erro_semantico erro_sintatico tabela trace test conflitos clean
 
 all: Parser.class
 
@@ -46,6 +46,12 @@ erros: all
 
 tabela: all
 	$(JAVA) Parser exemplos/tabela.mini
+
+erro_semantico: all
+	$(JAVA) Parser exemplos/erro_semantico.mini
+
+erro_sintatico: all
+	$(JAVA) Parser exemplos/erro_sintatico.mini
 
 trace: all
 	$(JAVA) Parser -t exemplos/ok.mini
