@@ -1,0 +1,27 @@
+// ok.mini — programa sem erros semânticos
+int n, v[10];
+double media;
+
+int fat(int k) {
+    if (k <= 1) return 1;
+    return k * fat(k - 1);          // recursão: fat já está na TS
+}
+
+double divide(double a, double b) {
+    return a / b;
+}
+
+void main() {
+    int i;
+    i = 0;
+    while (i < 10) {
+        v[i] = fat(i % 5);
+        i = i + 1;
+    }
+    {
+        double i;                   // oculta o 'i' de main (aviso)
+        i = 2.5;
+        media = divide(v[3], i);    // int -> double nos argumentos
+    }
+    if (media > 1 && !(n == 0)) print(media);
+}

@@ -1,0 +1,29 @@
+// erros.mini — cada linha marcada contém um erro semântico
+int x;
+bool ok;
+int x;                              // redeclaração
+
+int soma(int a, int b) {
+    return a + b;
+}
+
+void p() {
+    return 1;                       // void retornando valor
+}
+
+void main() {
+    int v[5];
+    double d;
+    d = 3;                          // OK: coerção int -> double
+    x = d;                          // double -> int: perda de precisão
+    y = 2;                          // y não declarado
+    x = soma(1);                    // número de argumentos
+    x = soma(1, true);              // tipo do argumento
+    ok = x + 1;                     // int atribuído a bool
+    if (x) print(x);                // condição não é bool
+    x = v;                          // arranjo usado como escalar
+    v[d] = 1;                       // índice double
+    x = p() + 1;                    // void em expressão
+    x = (y + 1) * 2;                // y não declarado: só UM erro (tipo erro)
+    break;                          // break fora de laço
+}

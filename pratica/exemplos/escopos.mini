@@ -1,0 +1,28 @@
+// escopos.mini — visualizando a tabela de símbolos e os escopos
+// (programa da aula: "a qual declaração cada uso se refere?")
+int x;
+int z;
+
+int f(int x, int y) {
+    print(x + y + z);           // x@6  y@6  z@4
+    {
+        int x, z;
+        z = y;                  // z@9  y@6
+        x = z;                  // x@9  z@9
+        {
+            int y;
+            y = x;              // y@13 x@9
+            $MOSTRA_TS          // pilha com 4 escopos abertos
+            print(x + y + z);
+        }
+        print(x + y + z);       // y voltou a ser o parâmetro (y@6)
+    }
+    return x;
+}
+
+void main() {
+    $TRACE_ON                   // liga o trace só neste trecho
+    x = f(1, 2);
+    $TRACE_OFF
+    $MOSTRA_TS
+}
