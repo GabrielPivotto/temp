@@ -62,6 +62,12 @@ public class TabSimb {
         return null;
     }
 
+    pubic boolean existePrototipo(String nome){
+        Simbolo simb = busca(nome);
+        if simb == null return false;
+        return simb.classe == Simbolo.Classe.PROTOTIPO; 
+    }
+
     /** Igual a busca(), mas registrada no trace: usada para cada USO de um nome. */
     public Simbolo resolve(String nome, int linha) {
         Simbolo s = busca(nome);

@@ -3,7 +3,7 @@ import java.util.List;
 
 /** Uma entrada da tabela de símbolos. */
 public class Simbolo {
-    public enum Classe { VAR_GLOBAL, VAR_LOCAL, PARAM, FUNCAO }
+    public enum Classe { VAR_GLOBAL, VAR_LOCAL, PARAM, FUNCAO, PROTOTIPO}
 
     public final String nome;
     public final Classe classe;

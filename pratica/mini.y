@@ -55,15 +55,24 @@ tipo       : INT                            { $$ = Tipo.INT; }
            | BOOL                           { $$ = Tipo.BOOL; }
            ;
 
-/* ---------- declarações de funções ---------- */
-decl_func  : cab_func '(' params ')' corpo  { fechaFuncao(); }
+
+/* ---------- declarações de prototipos ---------- */
+decl_prot  : cab '(' params ')' ';'
+
+cab        : tipo ID                        { if(ts.busca($2) != null) {abreFuncao($2, (Tipo)$1)}
+                                              else {declaraFunc($2, (Tipo)$1)}; }
+           | VOID ID                        { if(ts.busca($2) != null) {abreFuncao($2, Tipo.VOID)}
+                                              else {declaraFunc($2, Tipo.VOID)}; }
            ;
-cab_func   : tipo ID                        { abreFuncao($2, (Tipo)$1); }
-           | VOID ID                        { abreFuncao($2, Tipo.VOID); }
+
+decl_func  : cab '(' params ')' corpo  { fechaFuncao(); }
            ;
+
+
 params     : /* vazio */
            | lista_params
            ;
+           
 lista_params : param
            | lista_params ',' param
            ;
@@ -179,10 +188,16 @@ lista_args : expr                           { List<Tipo> l = new ArrayList<>(); 
     }
   }
 
-  void abreFuncao(String nome, Tipo ret) {
+ void declaraFunc(String nome, Tipo ret) {
     funcAtual = new Simbolo(nome, Simbolo.Classe.FUNCAO, ret, 0, linha());
     declara(funcAtual);                 // inserida ANTES do corpo: permite recursão
+  }
+
+
+  void abreFuncao(String nome, Tipo ret) {
+    funcAtual = ts.busca(nome)
     ts.abreEscopo("função " + nome, linha());    // escopo dos parâmetros e variáveis locais
+
   }
 
   void declaraParam(String nome, Tipo t) {
